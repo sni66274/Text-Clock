@@ -1,0 +1,182 @@
+title: Test One
+icon: mdi:roman-numeral-1
+theme: noctis
+cards:
+  - type: custom:mod-card
+    #   view_layout:
+    #     grid-area: sidebar
+    style:
+      .: |
+        ha-card {
+        font-family: Orbitron;
+        }
+      hui-grid-card$: |
+        #root {
+          justify-items: center !important;
+        }
+    card:
+      type: grid
+      columns: 1
+      square: false
+      cards:
+        - type: custom:button-card
+          show_icon: false
+          show_state: false
+          entity: sensor.time
+          name: It's
+          styles:
+            card:
+              - width: 300px
+              - height: 160px
+            grid:
+              - grid-template-columns: auto
+              - grid-template-rows: auto
+              - grid-template-areas: '" n a . . . " ". . b . . " ". . . c . " ".  . . . d "'
+            custom_fields:
+              a:
+              b:
+              c:
+              d:
+          custom_fields:
+            a: |
+              [[[
+                if (states['sensor.current_minute'].state == 0) {
+                  return (states['sensor.current_hour'].state)
+                } else if (states['sensor.current_minute'].state == 15) {
+                  return " "
+                } else if (states['sensor.current_minute'].state == 30) {
+                  return " "
+                } else if (states['sensor.current_minute'].state >= 31) {
+                  return (states['sensor.reversed_minute'].state)
+                } else if (states['sensor.current_minute'].state == 45) {
+                  return " "
+                } else {
+                  return (states['sensor.current_minute'].state)
+                }
+              ]]]
+            b: |
+              [[[
+                if (states['sensor.current_minute'].state == 0) {
+                  return " "
+                } else if (states['sensor.current_minute'].state == 1) {
+                    return "minute"
+                } else if (states['sensor.current_minute'].state == 15) {
+                return "a Quarter"
+                } else if (states['sensor.current_minute'].state == 30) {
+                    return "Half"
+                  } else if (states['sensor.current_minute'].state == 45) {
+                  return "a Quarter"
+                } else if (states['sensor.current_minute'].state == 59) {
+                  return "minute"
+                } else {
+                  return "minutes"
+                }
+              ]]]
+            c: |
+              [[[
+                if (states['sensor.current_minute'].state == 0) {
+                  return "o'Clock"
+                } else if (states['sensor.current_minute'].state >= 31) {
+                  return "to"
+                } else {
+                  return "past"
+                }
+              ]]]
+            d: |
+              [[[
+                if (states['sensor.current_minute'].state == 0) {
+                  return " "
+                } else if (states['sensor.current_minute'].state >= 31) {
+                  return (states['sensor.next_hour'].state)
+                } else {
+                  return (states['sensor.current_hour'].state)
+                }
+              ]]]
+        - type: custom:button-card
+          show_icon: false
+          show_state: false
+          entity: sensor.time
+          name: It's
+          styles:
+            card:
+              - width: 300px
+              - height: 160px
+            grid:
+              - grid-template-columns: auto
+              - grid-template-rows: auto
+              - grid-template-areas: '" n a . . . " ". . b . . " ". . . c . " ".  . . . d "'
+            custom_fields:
+              a:
+              b:
+              c:
+              d:
+          custom_fields:
+            a: |
+              [[[
+                if (states['sensor.current_minute'].state == 0) {
+                  return (states['sensor.current_hour'].state)
+                } else if (states['sensor.current_minute'].state == 15) {
+                  return " "
+                } else if (states['sensor.current_minute'].state == 30) {
+                  return " "
+                } else if (states['sensor.current_minute'].state >= 31) {
+                  return (states['sensor.reversed_minute'].state)
+                } else if (states['sensor.current_minute'].state == 45) {
+                  return " "
+                } else {
+                  return (states['sensor.current_minute'].state)
+                }
+              ]]]
+            b: |
+              [[[
+                if (states['sensor.current_minute'].state == 0) {
+                  return " "
+                } else if (states['sensor.current_minute'].state == 1) {
+                  return "minute"
+                } else if (states['sensor.current_minute'].state == 15) {
+                  return "a Quarter"
+                } else if (states['sensor.current_minute'].state == 30) {
+                  return "Half"
+                } else if (states['sensor.current_minute'].state == 45) {
+                  return "a Quarter"
+                } else if (states['sensor.current_minute'].state == 59) {
+                  return "minute"
+                } else {
+                  return "minutes"
+                }
+              ]]]
+            c: |
+              [[[
+                if (states['sensor.current_minute'].state == 0) {
+                  return "o'Clock"
+                } else if (states['sensor.current_minute'].state >= 31) {
+                  return "to"
+                } else {
+                  return "past"
+                }
+              ]]]
+            d: |
+              [[[
+                if (states['sensor.current_minute'].state == 0) {
+                  return " "
+                } else if (states['sensor.current_minute'].state >= 31) {
+                  return (states['sensor.next_hour'].state)
+                } else {
+                  return (states['sensor.current_hour'].state)
+                }
+              ]]]
+  # D
+  - type: custom:button-card
+    show_icon: false
+    show_state: false
+    show_name: true
+    entity: sensor.current_hour
+    name: >
+      [[[
+        if (states['sensor.current_minute'].state == 0)
+          return " "
+        else if (states['sensor.current_minute'].state >= 31) 
+          return (states['sensor.one_digit_next_hour'].state)
+        else
+          return (entity.state)
+      ]]]
